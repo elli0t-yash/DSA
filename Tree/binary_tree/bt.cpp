@@ -94,6 +94,7 @@ vector<int> morrisPreorder(Node* root) {
     return preorder;
 }
 
+//left view: first node of every level
 vector<int> leftView(Node* root, int level, vector<int> &res) {
     if(root == NULL) return res;
     if(res.size() == level) res.push_back(root -> data);
@@ -101,6 +102,7 @@ vector<int> leftView(Node* root, int level, vector<int> &res) {
     leftView(root -> right, level + 1, res);
 }
 
+//right view: last node of every level
 vector<int> rightView(Node* root, int level, vector<int> &res) {
     if(root == NULL) return res;
     if(res.size() == level) res.push_back(root -> data);
