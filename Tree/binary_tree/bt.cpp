@@ -94,12 +94,20 @@ vector<int> morrisPreorder(Node* root) {
     return preorder;
 }
 
+vector<int> leftView(Node* root, int level, vector<int> &res) {
+    if(root == NULL) return res;
+    if(res.size() == level) res.push_back(root -> data);
+    leftView(root -> left, level + 1, res);
+    leftView(root -> right, level + 1, res);
+}
+
 
 int main() {
     Node* root = new Node(2);
     root->left = new Node(4);
     root->right = new Node(6);
     root->left->right = new Node(8);
+    vector<int> ans = leftView(root, 0, ans);
 
     cout << "Inorder traversal: ";
     inorder(root);
@@ -108,5 +116,8 @@ int main() {
     cout << "Postorder traversal: ";
     postorder(root);
     cout << endl;
-    morrisInorder(root);
+    for(int x : ans)
+    cout<<x;
+    cout<<endl;
+    
 }
