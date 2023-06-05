@@ -101,6 +101,13 @@ vector<int> leftView(Node* root, int level, vector<int> &res) {
     leftView(root -> right, level + 1, res);
 }
 
+vector<int> rightView(Node* root, int level, vector<int> &res) {
+    if(root == NULL) return res;
+    if(res.size() == level) res.push_back(root -> data);
+    leftView(root -> right, level + 1, res);
+    leftView(root -> left, level + 1, res);
+}
+
 
 int main() {
     Node* root = new Node(2);
