@@ -14,7 +14,7 @@ class Node {
         }
 };
 
-// inorder: left -> root -> right
+// Inorder: left -> root -> right
 void inorder(Node* temp) {
     if(temp == NULL)
         return;
@@ -23,7 +23,7 @@ void inorder(Node* temp) {
     inorder(temp->right);
 }
 
-// preorder: root -> left -> right
+// Preorder: root -> left -> right
 void preorder(Node* temp) {
     if(temp == NULL)
         return;
@@ -32,7 +32,7 @@ void preorder(Node* temp) {
     preorder(temp->right);
 }
 
-//postorder: left -> right -> root
+// Postorder: left -> right -> root
 void postorder(Node* temp) {
     if(temp == NULL)
         return;
@@ -41,8 +41,8 @@ void postorder(Node* temp) {
     cout<<temp->data<<" ";
 }
 
-//Morris Inorder without call-stack or recursion
-//using two pointers current  and previous in order to make a threaded binary tree
+// Morris Inorder without call-stack or recursion
+// Using two pointers current  and previous in order to make a threaded binary tree
 vector<int> morrisInorder(Node* root) {
     vector<int> inorder;
     Node* cur = root;
@@ -68,7 +68,7 @@ vector<int> morrisInorder(Node* root) {
     return inorder;
 }
 
-//Morris Preorder without call-stack or recursion
+// Morris Preorder without call-stack or recursion
 vector<int> morrisPreorder(Node* root) {
     vector<int> preorder;
     Node* cur = root;
@@ -94,7 +94,7 @@ vector<int> morrisPreorder(Node* root) {
     return preorder;
 }
 
-//left view: first node of every level
+// Left view: first node of every level
 vector<int> leftView(Node* root, int level, vector<int> &res) {
     if(root == NULL) return res;
     if(res.size() == level) res.push_back(root -> data);
@@ -102,7 +102,7 @@ vector<int> leftView(Node* root, int level, vector<int> &res) {
     leftView(root -> right, level + 1, res);
 }
 
-//right view: last node of every level
+// Right view: last node of every level
 vector<int> rightView(Node* root, int level, vector<int> &res) {
     if(root == NULL) return res;
     if(res.size() == level) res.push_back(root -> data);
@@ -110,7 +110,7 @@ vector<int> rightView(Node* root, int level, vector<int> &res) {
     leftView(root -> left, level + 1, res);
 }
 
-//bottom view: vertical order traversal in used 
+// Bottom view: vertical order traversal in used 
 vector<int> bottomView(Node* root) {
     vector<int> ans;
     if(root = NULL) return ans;
@@ -162,6 +162,42 @@ vector<int> topView(Node* root) {
         ans.push_back(it.second);
     }
     return ans;
+}
+
+// All the 3 traversal using stack 
+vector<int> preInPostTraversal(Node* root) {
+    stack<pair<Node*, int>> st;
+    st.push({root, 1});
+    vector<int> pre, in, post;
+    if(root == NULL) return;
+    while(!st.empty()) {
+        auto it = st.top();
+        st.pop();
+
+        if(it.second == 1) {
+            pre.push_back(it.first -> data);
+            it.second++;
+            st.push(it);
+
+            if(it.first -> left) {
+                st.push({it.first -> left, 1});
+            }
+        }
+
+        else if(it.second == 2) {
+            in.push_back(it.first -> data);
+            it.second++;
+            st.push(it);
+
+            if(it.first -> right) {
+                st.push({it.first -> right, 1});
+            }
+        }
+
+        else {
+            post.push_back(it.first -> data);
+        }
+    }
 }
 
 
