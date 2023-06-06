@@ -200,6 +200,60 @@ vector<int> preInPostTraversal(Node* root) {
     }
 }
 
+// Vertical order traversal
+vector<vector<int>> verticalTraversal(Node* root) {
+    map<int, map<int, multiset<int>>> nodes;
+    queue<pair<Node*, pair<int,int>>> todo;
+    todo.push({root, {0, 0}});
+    while (!todo.empty()) {
+        auto p = todo.front();
+        todo.pop();
+        Node* node = p.first;
+        int x = p.second.first, y = p.second.second;
+        nodes[x][y].insert(node -> data);
+        if(node -> left) {
+            todo.push({node -> left, {x - 1, y + 1}});
+        }
+        if(node -> right) {
+            todo.push({node -> right, {x + 1, y + 1}});
+        }
+    }
+    
+    vector<vector<int>> ans;
+    for(auto p : nodes) {
+        vector<int> col;
+        for(auto q: p.second) {
+            col.insert(col.end(), q.second.begin(), q.second.end());
+        }
+        ans.push_back(col);
+    }
+    return ans;
+}
+
+// Path from root to any node X
+bool findPath(Node* root, vector<int> &arr, int x) {
+    if(!root)
+        return false;
+    
+    arr.push_back(root -> data);
+
+    if(root -> data == x)
+        return true;
+
+    if(findPath(root -> left, arr, x) || findPath(root -> right, arr, x))
+        return true;
+    
+    arr.pop_back();
+    return false;
+}
+
+vector<int> pathInATree(Node* root, int x) {
+    vector<int> arr;
+    if(root) {
+        findPath(root, arr, x);
+        return arr;
+    }
+}
 
 int main() {
     Node* root = new Node(2);
