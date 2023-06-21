@@ -315,6 +315,22 @@ int maxDepth(Node* root) {
     return 1 + max(lh, rh);
 }
 
+// Diameter of binary tree
+int diameterOfBinaryTree(Node* root) {
+    int diameter = 0;
+    height(root, diameter);
+    return diameter;
+}
+int height(Node* node, int& maxi) {
+    if(node == NULL) return 0;
+
+    int lh = height(node -> left, maxi);
+    int rh = height(node -> right, maxi);
+    maxi = max(maxi, lh+rh);
+
+    return 1 + max(lh, rh);
+}
+
 int main() {
     Node* root = new Node(2);
     root->left = new Node(4);
