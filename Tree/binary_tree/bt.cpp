@@ -305,6 +305,16 @@ vector<vector<int>> levelOrder(Node* root) {
     return ans;
 }
 
+// Maximum Depth of Binary Tree
+int maxDepth(Node* root) {
+    if(root == NULL) return 0;
+
+    int lh = maxDepth(root -> left);
+    int rh = maxDepth(root -> right);
+
+    return 1 + max(lh, rh);
+}
+
 int main() {
     Node* root = new Node(2);
     root->left = new Node(4);
