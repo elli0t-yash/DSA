@@ -331,6 +331,22 @@ int height(Node* node, int& maxi) {
     return 1 + max(lh, rh);
 }
 
+// Height Balanced tree
+bool isBalanced(Node* root) {
+    return dfsHeight(root) != -1;
+}
+int dfsHeight(Node* root) {
+    if(root == NULL) return 0;
+
+    int lh = dfsHeight(root -> left);
+    if(lh == -1) return -1;
+    int rh = dfsHeight(root -> right);
+    if(rh == -1) return -1;
+
+    if(abs(lh - rh) > 1) return -1;
+    return 1 + max(lh, rh); 
+}
+
 int main() {
     Node* root = new Node(2);
     root->left = new Node(4);
