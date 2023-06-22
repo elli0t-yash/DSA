@@ -347,6 +347,35 @@ int dfsHeight(Node* root) {
     return 1 + max(lh, rh); 
 }
 
+// Lowest normal ancestor
+Node* lowestCommonAncestor(Node* root, Node* p, Node* q) {
+    if(root == NULL || root == p || root == q) {
+        return root;
+    }
+    Node* left = lowestCommonAncestor(root -> left, p, q);
+    Node* right = lowestCommonAncestor(root -> right, p, q);
+
+    if(left == NULL) {
+        return right;
+    }
+    else if(right == NULL) {
+        return left;
+    }
+    else {
+        return root;
+    }
+}
+
+// Check same trees 
+bool isSameTree(Node* p, Node* q) {
+    if(p == NULL || q == NULL) {
+        return(p==q);
+    }
+    return(p -> data == q -> data) 
+        && isSameTree(p -> left, q -> left) 
+        && isSameTree(p -> right, q-> right);
+}
+
 int main() {
     Node* root = new Node(2);
     root->left = new Node(4);
