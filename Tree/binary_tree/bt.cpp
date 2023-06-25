@@ -411,6 +411,12 @@ vector<vector<int>> zigzagLevelOrder(Node* root) {
 }
 
 // Boundary Traversal (Anti-clockwise direction)
+bool isLeaf(Node* node) {
+    if(node -> left || node -> right)
+        return false;
+    return true;
+}
+
 void addLeftBoundary(Node* root, vector<int> &res) {
     Node* cur = root -> left;
     while (cur) {
@@ -420,8 +426,8 @@ void addLeftBoundary(Node* root, vector<int> &res) {
     }
 }
 
-void addRigthBoundary(Node* root, vector<int> &res) {
-    Node* cur = root -> rigth;
+void addRightBoundary(Node* root, vector<int> &res) {
+    Node* cur = root -> right;
     vector<int> tmp;
     while(cur) {
         if(!isLeaf(cur)) tmp.push_back(cur -> data);
