@@ -1,5 +1,12 @@
-#include<iostream>
+#include <bits/stdc++.h> 
 using namespace std;
+
+// Implementation of Min Heap
+vector<int> minHeap(int n, vector<vector<int>>& q) {
+    
+}
+
+
 
 class Heap {
     public:
